@@ -16,8 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
 import javax.swing.UIManager;
 
@@ -69,7 +72,7 @@ public class ImageSplitter extends JFrame {
 		setTitle("Image Splitter");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 376, 131);
+		setBounds(100, 100, 376, 150);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -146,8 +149,13 @@ public class ImageSplitter extends JFrame {
 		panel_2.add(sizeY);
 		sizeY.setColumns(10);
 		
+		JProgressBar bar = new JProgressBar(0, 100);
+		bar.setValue(0);
+		bar.setStringPainted(true);
+		panel_1.add(bar, BorderLayout.SOUTH);
+		
 		JButton btnProcess = new JButton("Process");
-		panel_1.add(btnProcess, BorderLayout.SOUTH);
+		panel_1.add(btnProcess, BorderLayout.CENTER);
 		btnProcess.addActionListener(new ActionListener()
 		{
 			@Override
@@ -175,10 +183,13 @@ public class ImageSplitter extends JFrame {
 					int height = img.getHeight() / Integer.parseInt(sizeY.getText());
 					int subCount = 1;
 					
-					for(int i = 0 ; i < width ; i++)
+					//bar.setMaximum(width*height);
+					
+					for(int j = 0 ; j < height ; j++)
 					{
-						for(int j = 0 ; j < height ; j++)
+						for(int i = 0 ; i < width ; i++)
 						{
+							bar.setValue(subCount / (width*height) * 100);
 							File outputfile = new File("img/" + folder.getName() + "/sub" + subCount + ".png");
 							outputfile.createNewFile();
 							BufferedImage sub = img.getSubimage(i * Integer.parseInt(sizeX.getText()), 
@@ -191,6 +202,7 @@ public class ImageSplitter extends JFrame {
 					}
 					
 					JOptionPane.showMessageDialog(null, "The image has been successfuly splitted!", "Info", 1);
+					bar.setValue(0);
 				}
 				catch(SizeFieldException sfe)
 				{
