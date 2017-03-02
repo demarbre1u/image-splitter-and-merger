@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -188,8 +189,7 @@ public class ImageSplitter extends JFrame {
 					for(int j = 0 ; j < height ; j++)
 					{
 						for(int i = 0 ; i < width ; i++)
-						{
-							bar.setValue(subCount / (width*height) * 100);
+						{	
 							File outputfile = new File("img/" + folder.getName() + "/sub" + subCount + ".png");
 							outputfile.createNewFile();
 							BufferedImage sub = img.getSubimage(i * Integer.parseInt(sizeX.getText()), 
@@ -199,6 +199,10 @@ public class ImageSplitter extends JFrame {
 							ImageIO.write(sub, "png", outputfile);
 							subCount++;
 						}
+						
+						
+						float per = ((float) subCount / (width*height) * 100);
+						bar.setValue((int) per);
 					}
 					
 					JOptionPane.showMessageDialog(null, "The image has been successfuly splitted!", "Info", 1);
@@ -219,5 +223,4 @@ public class ImageSplitter extends JFrame {
 			}
 		});
 	}
-
 }
