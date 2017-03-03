@@ -4,6 +4,7 @@ import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.RasterFormatException;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -16,14 +17,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.text.NumberFormatter;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.NumberFormatter;
 
 public class ImageSplitter extends JFrame {
 
@@ -140,7 +137,7 @@ public class ImageSplitter extends JFrame {
 		NumberFormatter formatter = new NumberFormatter(format);
 		formatter.setValueClass(Integer.class);
 		formatter.setMinimum(1);
-		formatter.setMaximum(Integer.MAX_VALUE);
+		formatter.setMaximum(999);
 		formatter.setAllowsInvalid(false);
 		// If you want the value to be committed on each keystroke instead of focus lost
 		formatter.setCommitsOnValidEdit(true);
@@ -189,8 +186,6 @@ public class ImageSplitter extends JFrame {
 					int height = img.getHeight() / row;
 					int subCount = 1;
 
-					//bar.setMaximum(width*height);
-
 					for(int j = 0 ; j < row ; j++)
 					{
 						for(int i = 0 ; i < column ; i++)
@@ -227,6 +222,10 @@ public class ImageSplitter extends JFrame {
 				catch (IOException e1) 
 				{
 					JOptionPane.showMessageDialog(null, "An error occured while attempting to read file!", "Error", 0);
+				}
+				catch(RasterFormatException rfe)
+				{
+					JOptionPane.showMessageDialog(null, "Values for row or column are too big!", "Error", 0);
 				}
 			}
 		});
