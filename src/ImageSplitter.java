@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
+import javax.swing.JSeparator;
 
 public class ImageSplitter extends JFrame {
 
@@ -73,7 +74,7 @@ public class ImageSplitter extends JFrame {
 		setTitle("Image Splitter");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 376, 135);
+		setBounds(100, 100, 376, 140);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -157,6 +158,7 @@ public class ImageSplitter extends JFrame {
 
 		JButton btnProcess = new JButton("Process");
 		panel_1.add(btnProcess, BorderLayout.CENTER);
+		
 		btnProcess.addActionListener(new ActionListener()
 		{
 			@Override
