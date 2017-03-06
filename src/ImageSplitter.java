@@ -33,6 +33,7 @@ public class ImageSplitter extends JFrame {
 	private JTextField path;
 	private JFormattedTextField sizeX;
 	private JFormattedTextField sizeY;
+	private JTextField destination;
 
 	/**
 	 * Launch the application.
@@ -74,7 +75,7 @@ public class ImageSplitter extends JFrame {
 		setTitle("Image Splitter");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 376, 140);
+		setBounds(100, 100, 376, 160);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -157,7 +158,34 @@ public class ImageSplitter extends JFrame {
 		sizeY.setColumns(10);
 
 		JButton btnProcess = new JButton("Process");
-		panel_1.add(btnProcess, BorderLayout.CENTER);
+		panel_1.add(btnProcess, BorderLayout.SOUTH);
+		
+		JPanel panel_3 = new JPanel();
+		panel_1.add(panel_3, BorderLayout.CENTER);
+		panel_3.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblDestination = new JLabel("Destination :");
+		panel_3.add(lblDestination, BorderLayout.WEST);
+		
+		destination = new JTextField();
+		panel_3.add(destination, BorderLayout.CENTER);
+		destination.setColumns(10);
+		
+		JButton btnBrowse_1 = new JButton("Browse");
+		panel_3.add(btnBrowse_1, BorderLayout.EAST);
+		btnBrowse_1.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				JFileChooser fc = new JFileChooser();
+				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			    fc.setAcceptAllFileFilterUsed(false);
+				fc.showOpenDialog(new JFrame("Chose a destination folder"));
+
+				destination.setText(fc.getSelectedFile().getAbsolutePath());
+			}
+		});
 		
 		btnProcess.addActionListener(new ActionListener()
 		{
@@ -167,10 +195,13 @@ public class ImageSplitter extends JFrame {
 				try 
 				{
 					if(path.getText().isEmpty())
-						throw new FilePathException("not file path specified");
+						throw new FilePathException("no file path specified");
 
 					if(sizeX.getText().isEmpty() || sizeY.getText().isEmpty())
 						throw new SizeFieldException("No size values");
+					
+					if(destination.getText().isEmpty())
+						throw new FileDestinationException("no destination path specified");
 
 					// Creating an image
 					BufferedImage img = null;
@@ -178,7 +209,7 @@ public class ImageSplitter extends JFrame {
 
 					// Creating folder where to create sub-images
 					File fileName = new File(path.getText());
-					File folder = new File("img/" + fileName.getName());
+					File folder = new File(destination.getText() + "/" + fileName.getName());
 					folder.mkdir();
 
 					// Creating all the sub-images
@@ -200,7 +231,7 @@ public class ImageSplitter extends JFrame {
 								placeholder += "0";
 							}
 
-							File outputfile = new File("img/" + folder.getName() + "/sub" + placeholder + subCount + ".png");
+							File outputfile = new File(destination.getText() + "/" + folder.getName() + "/sub" + placeholder + subCount + ".png");
 							outputfile.createNewFile();
 							BufferedImage sub = img.getSubimage(i * width, 
 									j * height, 
@@ -221,6 +252,10 @@ public class ImageSplitter extends JFrame {
 				{	
 					JOptionPane.showMessageDialog(null, "Path to image is not specified!", "Error", 0);
 				} 
+				catch(FileDestinationException fde)
+				{
+					JOptionPane.showMessageDialog(null, "Destination path is not specified!", "Error", 0);
+				}
 				catch (IOException e1) 
 				{
 					JOptionPane.showMessageDialog(null, "An error occured while attempting to read file!", "Error", 0);
