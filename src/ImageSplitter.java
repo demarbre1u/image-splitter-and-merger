@@ -21,7 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
-import javax.swing.JSeparator;
 
 public class ImageSplitter extends JFrame {
 
