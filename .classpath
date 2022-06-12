@@ -26,6 +26,7 @@
 	<classpathentry kind="lib" path="lib/Timing.jar"/>
 	<classpathentry kind="lib" path="lib/NefAnimacion_V2.1_jdk18.jar"/>
 	<classpathentry kind="lib" path="lib/json-20180813.jar"/>
+	<classpathentry kind="lib" path="lib/swingx-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/J_Material_Swing_v_2.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

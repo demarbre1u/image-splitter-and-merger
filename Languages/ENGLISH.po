@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: Resizer\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: den4b Team <support@den4b.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"X-Country: ru\n"
+"X-Country-Name: Russia\n"
+"X-Language-Name: Russian\n"
+"X-Language-Name-Native: Русский\n"
+"X-Translators: Денис Козлов\n"
+"X-Generator: Poedit 2.2\n"
+
+#: fmain.draganddrop
+msgid "Drag And Drop Here"
+msgstr ""
+
+#: fmain.row
+msgid "Row"
+msgstr ""
+
+#: fmain.rows
+msgid "Rows"
+msgstr ""
+
+#: fmain.column
+msgid "Column"
+msgstr ""
+
+#: fmain.columns
+msgid "Columns"
+msgstr ""
+
+#: fmain.path
+msgid "Path"
+msgstr ""
+
+#: fmain.destination
+msgid "Destination"
+msgstr ""
+
+#: fmain.browse
+msgid "Browse"
+msgstr ""
+
+#: fmain.subfolder
+msgid "Create subfolder in destination"
+msgstr ""
+
+#: fmain.split
+msgid "Split"
+msgstr ""
+
+#: fmain.merge
+msgid "Merge"
+msgstr ""
+
+#: fmain.convert
+msgid "Convert"
+msgstr ""
+
+#: fmain.clear
+msgid "Clear"
+msgstr ""
+
+#: fmain.title_clear_message
+msgid "Clear Message"
+msgstr ""
+
+#: fmain.msg_clear_message
+msgid "Are you sure to clear the file list?"
+msgstr ""
+
+#: fmain.finish_conversion
+msgid "Image has been created successfully"
+msgstr ""
+
+#: fmain.msg_collage
+msgid "Missing images to create the collage"
+msgstr ""

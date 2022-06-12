@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: Resizer\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: den4b Team <support@den4b.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"X-Country: ru\n"
+"X-Country-Name: \n"
+"X-Language-Name: n\n"
+"X-Language-Name-Native: Русский\n"
+"X-Translators: \n"
+"X-Generator: \n"
+
+#: fmain.draganddrop
+msgid "Drag and drop"
+msgstr "Arrastrar y soltar"
+
+#: fmain.row
+msgid "Row"
+msgstr "Fila"
+
+#: fmain.rows
+msgid "Rows"
+msgstr "Filas"
+
+#: fmain.column
+msgid "Column"
+msgstr "Columna"
+
+#: fmain.columns
+msgid "Columns"
+msgstr "Columnas"
+
+#: fmain.path
+msgid "Path"
+msgstr "Carpeta de entrada"
+
+#: fmain.destination
+msgid "Destination"
+msgstr "Carpeta de salida"
+
+#: fmain.browse
+msgid "Browse"
+msgstr "Explorar"
+
+#: fmain.subfolder
+msgid "Create subfolder in destination"
+msgstr "Crear subcarpeta en la carpeta de salida"
+
+#: fmain.split
+msgid "Split"
+msgstr "Cortar"
+
+#: fmain.merge
+msgid "Merge"
+msgstr "Unir"
+
+#: fmain.convert
+msgid "Convert"
+msgstr "Convertir"
+
+#: fmain.clear
+msgid "Clear"
+msgstr "Limpiar lista"
+
+#: fmain.title_clear_message
+msgid "Clear Message"
+msgstr "Limpiar lista"
+
+#: fmain.msg_clear_message
+msgid "Are you sure to clear the file list?"
+msgstr "�Est�s seguro de limpiar la lista de archivos?"
+
+#: fmain.finish_conversion
+msgid "Image has been created successfully"
+msgstr "La imagen ha sido creada correctamente"
+
+#: fmain.msg_collage
+msgid "Missing images to create the collage"
+msgstr "Faltan imagenes para crear el collage"
