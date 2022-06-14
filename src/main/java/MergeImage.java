@@ -1,122 +1,124 @@
+import com.languages.ComboBoxLanguage;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.LinkedList;
-
 import javax.imageio.ImageIO;
-
-import com.languages.ComboBoxLanguage;
-
 import util.Metodos;
 
 public class MergeImage {
 
-	public void mergeImage(String path, String output, int rows, int cols) {
+  public void mergeImage(String path, String output, int rows, int cols) {
+    try {
+      if (rows + cols != 2) {
+        int chunks = rows * cols;
 
-		try {
+        File[] imgFiles;
 
-			if (rows + cols != 2) {
+        int chunkWidth, chunkHeight;
 
-				int chunks = rows * cols;
+        int type;
 
-				File[] imgFiles;
+        if (ImgSplitter.archivosDrag.isEmpty()) {
+          LinkedList<String> lista = new LinkedList<String>();
 
-				int chunkWidth, chunkHeight;
+          Metodos.renombrarConCeros(path, "images");
 
-				int type;
+          lista =
+            Metodos.directorio(
+              path + Metodos.saberSeparador(),
+              "images",
+              false
+            );
 
-				if (ImgSplitter.archivosDrag.isEmpty()) {
+          imgFiles = new File[lista.size()];
 
-					LinkedList<String> lista = new LinkedList<String>();
+          for (int i = 0; i < lista.size(); i++) {
+            imgFiles[i] = new File(lista.get(i));
+          }
+        } else {
+          imgFiles = new File[ImgSplitter.archivosDrag.size()];
 
-					Metodos.renombrarConCeros(path, "images");
+          for (int i = 0; i < ImgSplitter.archivosDrag.size(); i++) {
+            imgFiles[i] = ImgSplitter.archivosDrag.get(i);
+          }
+        }
 
-					lista = Metodos.directorio(path + Metodos.saberSeparador(), "images", false);
+        BufferedImage[] buffImages = new BufferedImage[chunks];
 
-					imgFiles = new File[lista.size()];
+        for (int i = 0; i < chunks; i++) {
+          buffImages[i] = ImageIO.read(imgFiles[i]);
+        }
 
-					for (int i = 0; i < lista.size(); i++) {
+        type = buffImages[0].getType();
 
-						imgFiles[i] = new File(lista.get(i));
+        chunkWidth = buffImages[0].getWidth();
 
-					}
+        chunkHeight = buffImages[0].getHeight();
 
-				}
+        BufferedImage finalImg = new BufferedImage(
+          chunkWidth * cols,
+          chunkHeight * rows,
+          type
+        );
 
-				else {
+        int num = 0;
 
-					imgFiles = new File[ImgSplitter.archivosDrag.size()];
+        for (int i = 0; i < rows; i++) {
+          for (int j = 0; j < cols; j++) {
+            finalImg
+              .createGraphics()
+              .drawImage(
+                buffImages[num],
+                chunkWidth * j,
+                chunkHeight * i,
+                null
+              );
 
-					for (int i = 0; i < ImgSplitter.archivosDrag.size(); i++) {
+            num++;
+          }
+        }
 
-						imgFiles[i] = ImgSplitter.archivosDrag.get(i);
+        String extension = Metodos.extraerExtension(path);
 
-					}
+        ImageIO.write(finalImg, extension, new File(output));
 
-				}
+        if (
+          !extension.equals(
+            ImgSplitter.format.getSelectedItem().toString().toLowerCase()
+          )
+        ) {
+          Metodos.convertImg(
+            output,
+            ImgSplitter.format.getSelectedItem().toString().toLowerCase()
+          );
 
-				BufferedImage[] buffImages = new BufferedImage[chunks];
+          Metodos.eliminarFichero(output);
+        }
 
-				for (int i = 0; i < chunks; i++) {
+        ImgSplitter.alert.mensaje(
+          ComboBoxLanguage.translateString(
+            "finish_conversion",
+            ImgSplitter.idioma.getLanguage()
+          ),
+          2,
+          15
+        );
 
-					buffImages[i] = ImageIO.read(imgFiles[i]);
-				}
-
-				type = buffImages[0].getType();
-
-				chunkWidth = buffImages[0].getWidth();
-
-				chunkHeight = buffImages[0].getHeight();
-
-				BufferedImage finalImg = new BufferedImage(chunkWidth * cols, chunkHeight * rows, type);
-
-				int num = 0;
-
-				for (int i = 0; i < rows; i++) {
-
-					for (int j = 0; j < cols; j++) {
-
-						finalImg.createGraphics().drawImage(buffImages[num], chunkWidth * j, chunkHeight * i, null);
-
-						num++;
-
-					}
-
-				}
-
-				String extension = Metodos.extraerExtension(path);
-
-				ImageIO.write(finalImg, extension, new File(output));
-
-				if (!extension.equals(ImgSplitter.format.getSelectedItem().toString().toLowerCase())) {
-
-					Metodos.convertImg(output, ImgSplitter.format.getSelectedItem().toString().toLowerCase());
-
-					Metodos.eliminarFichero(output);
-
-				}
-
-				ImgSplitter.alert.mensaje(
-						ComboBoxLanguage.translateString("finish_conversion", ImgSplitter.idioma.getLanguage()), 2, 15);
-
-				Metodos.abrirCarpeta(output.substring(0, output.lastIndexOf(Metodos.saberSeparador())));
-
-			}
-
-		}
-
-		catch (IndexOutOfBoundsException e) {
-
-			ImgSplitter.alert.mensaje(ComboBoxLanguage.translateString("msg_collage", ImgSplitter.idioma.getLanguage()),
-					1, 16);
-
-		}
-
-		catch (Exception e) {
-
-			e.printStackTrace();
-
-		}
-
-	}
-
+        Metodos.abrirCarpeta(
+          output.substring(0, output.lastIndexOf(Metodos.saberSeparador()))
+        );
+      }
+    } catch (IndexOutOfBoundsException e) {
+      ImgSplitter.alert.mensaje(
+        ComboBoxLanguage.translateString(
+          "msg_collage",
+          ImgSplitter.idioma.getLanguage()
+        ),
+        1,
+        16
+      );
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }
